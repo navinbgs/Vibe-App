@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Log</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>📝 Daily Log</h1>
+
+  <form method="POST" action="/add">
+    <input 
+      type="text" 
+      name="entry" 
+      placeholder="Write something..." 
+      required
+    />
+    <button type="submit">Add</button>
+  </form>
+
+  <h2>Entries</h2>
+  <ul id="entries"></ul>
+
+  <script>
+    fetch("/entries")
+      .then(res => res.json())
+      .then(data => {
+        const ul = document.getElementById("entries");
+        data.forEach(entry => {
+          const li = document.createElement("li");
+          li.textContent = entry;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
